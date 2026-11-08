@@ -3,6 +3,11 @@ package controller;
 
 import model.Concert;
 import model.Seat;
+import model.Customer;
+import model.Payment;
+import model.Reservation;
+import model.Ticket;
+import model.SeatStatus;
 
 import repository.SeatRepository;
 import repository.CustomerRepository;
@@ -50,6 +55,9 @@ public class StagePassController {
     private CustomerView customerView;
     private PaymentView paymentView;
     private TicketView ticketView;
+
+    // Store the latest generated ticket
+    private Ticket latestTicket;
 
     public StagePassController(Concert concert) {
 
@@ -107,6 +115,7 @@ public class StagePassController {
 
             int choice = mainMenuView.getMenuChoice();
 
+            // Consume the remaining newline
             scanner.nextLine();
 
             switch (choice) {
@@ -122,15 +131,11 @@ public class StagePassController {
                     break;
 
                 case 3:
-                    System.out.println(
-                            "Seat reservation will be implemented next."
-                    );
+                    reserveSeat();
                     break;
 
                 case 4:
-                    System.out.println(
-                            "Ticket viewing will be implemented next."
-                    );
+                    viewMyTicket();
                     break;
 
                 case 5:
@@ -146,5 +151,126 @@ public class StagePassController {
                     );
             }
         }
+    }
+
+    private void reserveSeat() {
+
+        System.out.println("\n===== SEAT RESERVATION =====");
+
+        // Display seats
+        seatView.displaySeats(seatRepository.getAllSeats());
+
+        System.out.print("\nEnter seat number: ");
+        String seatNumber = scanner.nextLine().trim();
+
+        // Find selected seat
+        Seat seat = seatRepository.findSeatByNumber(seatNumber);
+
+        if (seat == null) {
+            System.out.println("Seat does not exist!");
+            return;
+        }
+
+        // Check seat availability
+        if (seat.getStatus() != SeatStatus.AVAILABLE) {
+            System.out.println("Sorry! This seat is already taken.");
+            return;
+        }
+
+        // Collect customer information
+        System.out.println("\nPlease provide your information.");
+
+        Customer customer = customerView.getCustomerDetails();
+
+        // Register customer
+        boolean registered =
+                customerService.registerCustomer(customer);
+
+        if (!registered) {
+            System.out.println("Unable to register customer.");
+            return;
+        }
+
+        // Create reservation
+        Reservation reservation =
+                reservationService.createReservation(
+                        customer,
+                        seatNumber
+                );
+
+        if (reservation == null) {
+            System.out.println("Unable to reserve this seat.");
+            return;
+        }
+
+        System.out.println("\nSeat successfully reserved!");
+        System.out.println(
+                "Reservation ID: " + reservation.getReservationId()
+        );
+
+        // Collect payment information
+        Payment payment =
+                paymentView.getPaymentDetails(seat.getPrice());
+
+        if (payment == null) {
+
+            reservationService.cancelReservation(
+                    reservation.getReservationId()
+            );
+
+            System.out.println("Reservation cancelled.");
+            return;
+        }
+
+        // Process payment
+        boolean successful =
+                paymentService.processPayment(reservation, payment);
+
+        if (successful) {
+
+            // Generate ticket
+            Ticket ticket =
+                    ticketService.generateTicket(reservation);
+
+            if (ticket != null) {
+
+                latestTicket = ticket;
+
+                System.out.println("\nPayment successful!");
+
+                ticketView.displayTicket(
+                        ticket,
+                        concert.getConcertName()
+                );
+
+            } else {
+                System.out.println("Unable to generate ticket.");
+            }
+
+        } else {
+
+            reservationService.cancelReservation(
+                    reservation.getReservationId()
+            );
+
+            System.out.println(
+                    "Payment failed. Reservation cancelled."
+            );
+        }
+    }
+
+    private void viewMyTicket() {
+
+        System.out.println("\n===== MY TICKET =====");
+
+        if (latestTicket == null) {
+            System.out.println("You don't have a ticket yet.");
+            return;
+        }
+
+        ticketView.displayTicket(
+                latestTicket,
+                concert.getConcertName()
+        );
     }
 }
