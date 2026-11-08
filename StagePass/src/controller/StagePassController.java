@@ -3,36 +3,84 @@ package controller;
 
 import model.Concert;
 import model.Seat;
+
 import repository.SeatRepository;
+import repository.CustomerRepository;
+import repository.ReservationRepository;
+import repository.PaymentRepository;
+import repository.TicketRepository;
+
 import service.SeatInitializationService;
+import service.CustomerService;
+import service.ReservationService;
+import service.PaymentService;
+import service.TicketService;
+
 import view.MainMenuView;
 import view.ConcertView;
 import view.SeatView;
+import view.CustomerView;
+import view.PaymentView;
+import view.TicketView;
 
 import java.util.Scanner;
 
 public class StagePassController {
 
     private Scanner scanner;
-
     private Concert concert;
 
+    // Repositories
     private SeatRepository seatRepository;
+    private CustomerRepository customerRepository;
+    private ReservationRepository reservationRepository;
+    private PaymentRepository paymentRepository;
+    private TicketRepository ticketRepository;
 
+    // Services
+    private CustomerService customerService;
+    private ReservationService reservationService;
+    private PaymentService paymentService;
+    private TicketService ticketService;
+
+    // Views
     private MainMenuView mainMenuView;
     private ConcertView concertView;
     private SeatView seatView;
+    private CustomerView customerView;
+    private PaymentView paymentView;
+    private TicketView ticketView;
 
     public StagePassController(Concert concert) {
 
         this.scanner = new Scanner(System.in);
         this.concert = concert;
 
-        this.seatRepository = new SeatRepository();
+        // Initialize repositories
+        seatRepository = new SeatRepository();
+        customerRepository = new CustomerRepository();
+        reservationRepository = new ReservationRepository();
+        paymentRepository = new PaymentRepository();
+        ticketRepository = new TicketRepository();
 
-        this.mainMenuView = new MainMenuView(scanner);
-        this.concertView = new ConcertView();
-        this.seatView = new SeatView();
+        // Initialize services
+        customerService = new CustomerService(customerRepository);
+
+        reservationService = new ReservationService(
+                reservationRepository,
+                seatRepository
+        );
+
+        paymentService = new PaymentService(paymentRepository);
+        ticketService = new TicketService(ticketRepository);
+
+        // Initialize views
+        mainMenuView = new MainMenuView(scanner);
+        concertView = new ConcertView();
+        seatView = new SeatView();
+        customerView = new CustomerView(scanner);
+        paymentView = new PaymentView(scanner);
+        ticketView = new TicketView();
 
         initializeSeats();
     }
@@ -59,7 +107,6 @@ public class StagePassController {
 
             int choice = mainMenuView.getMenuChoice();
 
-            // Consume the remaining newline
             scanner.nextLine();
 
             switch (choice) {
