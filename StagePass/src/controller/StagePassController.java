@@ -154,7 +154,9 @@ public class StagePassController {
             }
             if (running)
             {
-                
+                System.out.println(
+                    "\nPress Enter to return to the main menu..."
+                );
             }
         }
     }
