@@ -152,6 +152,10 @@ public class StagePassController {
                             "\nInvalid choice. Please try again."
                     );
             }
+            if (running)
+            {
+                
+            }
         }
     }
 
