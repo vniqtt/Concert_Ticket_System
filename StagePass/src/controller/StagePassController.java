@@ -111,6 +111,8 @@ public class StagePassController {
 
         while (running) {
 
+            clearScreen();
+
             mainMenuView.displayMenu();
 
             int choice = mainMenuView.getMenuChoice();
