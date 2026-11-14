@@ -6,18 +6,38 @@ public class ConcertView {
 
     public void displayConcertDetails(Concert concert) {
 
-        System.out.println("\n===== CONCERT DETAILS =====");
+        System.out.println(
+            ConsoleColors.CYAN + "\n===== CONCERT DETAILS ====="
+            + ConsoleColors.RESET
+        );
 
-        System.out.println("Concert Name: " + concert.getConcertName());
-        System.out.println("Date: " + concert.getConcertDate());
-        System.out.println("Venue: " + concert.getVenue());
+        System.out.println(
+            ConsoleColors.YELLOW + "Concert Name: "
+            + ConsoleColors.WHITE + concert.getConcertName()
+            + ConsoleColors.RESET
+        );
 
-        System.out.println("\n===== TICKET PRICES =====");
+        System.out.println(
+            ConsoleColors.YELLOW + "Date: "
+            + ConsoleColors.WHITE + concert.getConcertDate()
+            + ConsoleColors.RESET
+        );
 
-        System.out.println("Diamond: PHP 25,000");
-        System.out.println("VIP: PHP 20,000");
-        System.out.println("Platinum: PHP 15,000");
-        System.out.println("Gold: PHP 9,000");
-        System.out.println("Silver: PHP 4,000");
+        System.out.println(
+            ConsoleColors.YELLOW + "Venue: "
+            + ConsoleColors.WHITE + concert.getVenue()
+            + ConsoleColors.RESET
+        );
+
+        System.out.println(
+            ConsoleColors.CYAN + "\n===== TICKET PRICES ====="
+            + ConsoleColors.RESET
+        );
+
+        System.out.println(ConsoleColors.PURPLE + "Diamond: PHP 25,000" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.YELLOW + "VIP: PHP 20,000" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.BLUE + "Platinum: PHP 15,000" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.GREEN + "Gold: PHP 9,000" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.WHITE + "Silver: PHP 4,000" + ConsoleColors.RESET);
     }
 }
