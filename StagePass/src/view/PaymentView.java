@@ -18,14 +18,36 @@ public class PaymentView {
 
     public Payment getPaymentDetails(double amount) {
 
-        System.out.println("\n===== PAYMENT METHOD =====");
-        System.out.println("Amount to Pay: PHP " + amount);
+        System.out.println(
+            ConsoleColors.CYAN + "\n===== PAYMENT METHOD ====="
+            + ConsoleColors.RESET
+        );
 
-        System.out.println("\n1. Cash");
-        System.out.println("2. Card");
-        System.out.println("3. GCash");
+        System.out.println(
+            ConsoleColors.YELLOW + "Amount to Pay: PHP " + amount
+            + ConsoleColors.RESET
+        );
 
-        System.out.print("\nChoose payment method: ");
+        System.out.println(
+            ConsoleColors.GREEN + "\n1. Cash"
+            + ConsoleColors.RESET
+        );
+
+        System.out.println(
+            ConsoleColors.BLUE + "2. Card"
+            + ConsoleColors.RESET
+        );
+
+        System.out.println(
+            ConsoleColors.PURPLE + "3. GCash"
+            + ConsoleColors.RESET
+        );
+
+        System.out.print(
+            ConsoleColors.CYAN + "\nChoose payment method: "
+            + ConsoleColors.RESET
+        );
+
         int choice = scanner.nextInt();
         scanner.nextLine();
 
@@ -37,7 +59,11 @@ public class PaymentView {
                 return new CashPayment(paymentId, amount);
 
             case 2:
-                System.out.print("Enter cardholder name: ");
+                System.out.print(
+                    ConsoleColors.YELLOW + "Enter cardholder name: "
+                    + ConsoleColors.RESET
+                );
+
                 String cardHolderName = scanner.nextLine();
 
                 return new CardPayment(
@@ -47,7 +73,11 @@ public class PaymentView {
                 );
 
             case 3:
-                System.out.print("Enter GCash account name: ");
+                System.out.print(
+                    ConsoleColors.YELLOW + "Enter GCash account name: "
+                    + ConsoleColors.RESET
+                );
+
                 String accountName = scanner.nextLine();
 
                 return new GCashPayment(
@@ -57,7 +87,11 @@ public class PaymentView {
                 );
 
             default:
-                System.out.println("Invalid payment method!");
+                System.out.println(
+                    ConsoleColors.RED + "Invalid payment method!"
+                    + ConsoleColors.RESET
+                );
+
                 return null;
         }
     }
