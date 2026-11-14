@@ -244,6 +244,8 @@ public class StagePassController {
 
                 latestTicket = ticket;
 
+                clearScreen();
+
                 System.out.println("\nPayment successful!");
 
                 ticketView.displayTicket(
