@@ -116,9 +116,6 @@ public class StagePassController {
 
             int choice = mainMenuView.getMenuChoice();
 
-            // Consume the remaining newline
-            scanner.nextLine();
-
             clearScreen();
 
             switch (choice) {
@@ -170,7 +167,7 @@ public class StagePassController {
         Seat seat = seatRepository.findSeatByNumber(seatNumber);
 
         if (seat == null) {
-            System.out.println("Seat does not exist!");
+            System.out.println(ConsoleColors.RED + "Seat does not exist!" + ConsoleColors.RESET);
             return;
         }
 

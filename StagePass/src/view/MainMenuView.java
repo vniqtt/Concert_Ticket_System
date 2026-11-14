@@ -49,6 +49,13 @@ public class MainMenuView {
     }
 
     public int getMenuChoice() {
-        return scanner.nextInt();
+        String input = scanner.nextLine();
+
+        try {
+            return Integer.parseInt(input.trim());
+
+        } catch (NumberFormatException e) {
+            return -1;
+        }
     }
 }
