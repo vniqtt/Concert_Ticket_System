@@ -23,6 +23,7 @@ import service.TicketService;
 
 import view.MainMenuView;
 import view.ConcertView;
+import view.ConsoleColors;
 import view.SeatView;
 import view.CustomerView;
 import view.PaymentView;
@@ -148,9 +149,7 @@ public class StagePassController {
                     break;
 
                 default:
-                    System.out.println(
-                            "\nInvalid choice. Please try again."
-                    );
+                    System.out.println(ConsoleColors.RED + "\nInvalid choice. Please try again." + ConsoleColors.RESET);
             }
         }
     }
@@ -177,7 +176,7 @@ public class StagePassController {
 
         // Check seat availability
         if (seat.getStatus() != SeatStatus.AVAILABLE) {
-            System.out.println("Sorry! This seat is already taken.");
+            System.out.println(ConsoleColors.RED + "Sorry! This seat is already taken." + ConsoleColors.RESET);
             return;
         }
 
@@ -194,7 +193,7 @@ public class StagePassController {
                 customerService.registerCustomer(customer);
 
         if (!registered) {
-            System.out.println("Unable to register customer.");
+            System.out.println(ConsoleColors.RED + "Unable to register customer." + ConsoleColors.RESET);
             return;
         }
 
@@ -206,7 +205,7 @@ public class StagePassController {
                 );
 
         if (reservation == null) {
-            System.out.println("Unable to reserve this seat.");
+            System.out.println(ConsoleColors.RED + "Unable to reserve this seat." + ConsoleColors.RESET);
             return;
         }
 
@@ -226,7 +225,7 @@ public class StagePassController {
                     reservation.getReservationId()
             );
 
-            System.out.println("Reservation cancelled.");
+            System.out.println(ConsoleColors.RED + "Reservation cancelled." + ConsoleColors.RESET);
             return;
         }
 
@@ -254,7 +253,7 @@ public class StagePassController {
                 );
 
             } else {
-                System.out.println("Unable to generate ticket.");
+                System.out.println(ConsoleColors.RED + "Unable to generate ticket." + ConsoleColors.RESET);
             }
 
         } else {
@@ -263,9 +262,7 @@ public class StagePassController {
                     reservation.getReservationId()
             );
 
-            System.out.println(
-                    "Payment failed. Reservation cancelled."
-            );
+            System.out.println(ConsoleColors.RED + "Payment failed. Reservation cancelled." + ConsoleColors.RESET);
         }
     }
 
