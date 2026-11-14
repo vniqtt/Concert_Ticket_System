@@ -271,6 +271,8 @@ public class StagePassController {
 
     private void viewMyTicket() {
 
+        clearScreen();
+
         System.out.println("\n===== MY TICKET =====");
 
         if (latestTicket == null) {
