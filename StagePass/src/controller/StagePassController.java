@@ -182,6 +182,8 @@ public class StagePassController {
         }
 
         // Collect customer information
+        clearScreen();
+
         System.out.println("\nPlease provide your information.");
 
         Customer customer = customerView.getCustomerDetails();
