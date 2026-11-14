@@ -12,14 +12,40 @@ public class MainMenuView {
 
     public void displayMenu() {
 
-        System.out.println("\n===== STAGEPASS =====");
-        System.out.println("1. View Concert");
-        System.out.println("2. View Available Seats");
-        System.out.println("3. Reserve a Seat");
-        System.out.println("4. View My Ticket");
-        System.out.println("5. Exit");
+        System.out.println(
+                ConsoleColors.CYAN + "\n===== STAGEPASS ====="
+                + ConsoleColors.RESET
+        );
 
-        System.out.print("\nEnter your choice: ");
+        System.out.println(
+                ConsoleColors.YELLOW + "1. View Concert"
+                + ConsoleColors.RESET
+        );
+
+        System.out.println(
+                ConsoleColors.WHITE + "2. View Available Seats"
+                + ConsoleColors.RESET
+        );
+
+        System.out.println(
+                ConsoleColors.WHITE + "3. Reserve a Seat"
+                + ConsoleColors.RESET
+        );
+
+        System.out.println(
+                ConsoleColors.WHITE + "4. View My Ticket"
+                + ConsoleColors.RESET
+        );
+
+        System.out.println(
+                ConsoleColors.RED + "5. Exit"
+                + ConsoleColors.RESET
+        );
+
+        System.out.print(
+                ConsoleColors.CYAN + "\nEnter your choice: "
+                + ConsoleColors.RESET
+        );
     }
 
     public int getMenuChoice() {
