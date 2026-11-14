@@ -184,6 +184,7 @@ public class StagePassController {
         // Collect customer information
         clearScreen();
 
+        System.out.println("\n===== CUSTOMER INFORMATION =====");
         System.out.println("\nPlease provide your information.");
 
         Customer customer = customerView.getCustomerDetails();
@@ -215,8 +216,9 @@ public class StagePassController {
         );
 
         // Collect payment information
-        Payment payment =
-                paymentView.getPaymentDetails(seat.getPrice());
+
+        clearScreen();
+        Payment payment = paymentView.getPaymentDetails(seat.getPrice());
 
         if (payment == null) {
 
