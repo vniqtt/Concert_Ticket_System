@@ -124,7 +124,6 @@ public class StagePassController {
 
                 case 1:
                     concertView.displayConcertDetails(concert);
-                    clearScreen();
                     break;
 
                 case 2:
