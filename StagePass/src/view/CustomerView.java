@@ -14,18 +14,35 @@ public class CustomerView {
 
     public Customer getCustomerDetails() {
 
-        System.out.println("\n===== CUSTOMER INFORMATION =====");
+        System.out.println(
+            ConsoleColors.CYAN + "\n===== CUSTOMER INFORMATION ====="
+            + ConsoleColors.RESET
+        );
 
-        System.out.print("Enter full name: ");
+        System.out.print(
+            ConsoleColors.YELLOW + "Enter full name: "
+            + ConsoleColors.RESET
+        );
         String fullName = scanner.nextLine();
 
-        System.out.print("Enter email: ");
+        System.out.print(
+            ConsoleColors.YELLOW + "Enter email: "
+            + ConsoleColors.RESET
+        );
         String email = scanner.nextLine();
 
-        System.out.print("Enter contact number: ");
+        System.out.print(
+            ConsoleColors.YELLOW + "Enter contact number: "
+            + ConsoleColors.RESET
+        );
         String contactNumber = scanner.nextLine();
 
         String customerId = UUID.randomUUID().toString();
+
+        System.out.println(
+            ConsoleColors.GREEN + "\nCustomer information entered successfully!"
+            + ConsoleColors.RESET
+        );
 
         return new Customer(
             customerId,
