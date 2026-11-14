@@ -118,6 +118,8 @@ public class StagePassController {
             // Consume the remaining newline
             scanner.nextLine();
 
+            clearScreen();
+
             switch (choice) {
 
                 case 1:
