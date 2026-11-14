@@ -157,6 +157,8 @@ public class StagePassController {
 
     private void reserveSeat() {
 
+        clearScreen();
+
         System.out.println("\n===== SEAT RESERVATION =====");
 
         // Display seats
