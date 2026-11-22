@@ -1,3 +1,4 @@
+
 package view;
 
 import java.util.Scanner;
@@ -33,12 +34,7 @@ public class MainMenuView {
         );
 
         System.out.println(
-                ConsoleColors.WHITE + "4. View My Ticket"
-                + ConsoleColors.RESET
-        );
-
-        System.out.println(
-                ConsoleColors.RED + "5. Exit"
+                ConsoleColors.RED + "4. Exit"
                 + ConsoleColors.RESET
         );
 
@@ -47,6 +43,25 @@ public class MainMenuView {
                 + ConsoleColors.RESET
         );
     }
+
+    public String getMenuInput() {
+        return scanner.nextLine().trim();
+    }
+
+    public void displayAdminMenu() {
+
+        System.out.println(
+                ConsoleColors.PURPLE + "\n===== ADMIN MENU ====="
+                + ConsoleColors.RESET
+        );
+
+        System.out.println("1. View All Purchases");
+        System.out.println("2. Return to Main Menu");
+
+        System.out.print("\nEnter your choice: ");
+    }
+
+
 
     public int getMenuChoice() {
         String input = scanner.nextLine();
