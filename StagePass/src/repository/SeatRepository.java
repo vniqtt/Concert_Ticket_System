@@ -29,8 +29,7 @@ public class SeatRepository {
     public boolean isSeatAvailable(String seatNumber) {
         Seat seat = findSeatByNumber(seatNumber);
 
-        return seat != null &&
-               seat.getStatus() == model.SeatStatus.AVAILABLE;
+        return seat != null && seat.getStatus() == model.SeatStatus.AVAILABLE;
     }
 
     public List<Seat> getAllSeats() {
