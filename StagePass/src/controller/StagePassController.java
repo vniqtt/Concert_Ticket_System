@@ -58,7 +58,6 @@ public class StagePassController {
     private TicketView ticketView;
 
     // Store the latest generated ticket
-    private Ticket latestTicket;
 
     public StagePassController(Concert concert) {
 
@@ -106,50 +105,57 @@ public class StagePassController {
         }
     }
 
-    public void start() {
+    
+public void start() {
 
-        boolean running = true;
+    boolean running = true;
 
-        while (running) {
+    while (running) {
 
-            mainMenuView.displayMenu();
+        mainMenuView.displayMenu();
 
-            int choice = mainMenuView.getMenuChoice();
+        String input = mainMenuView.getMenuInput();
 
-            clearScreen();
+        clearScreen();
 
-            switch (choice) {
+        // Check for admin command
+        if (input.equalsIgnoreCase("admin")) {
+            showAdminMenu();
+            continue;
+        }
 
-                case 1:
-                    concertView.displayConcertDetails(concert);
-                    break;
+        switch (input) {
 
-                case 2:
-                    seatView.displaySeats(
-                            seatRepository.getAllSeats()
-                    );
-                    break;
+            case "1":
+                concertView.displayConcertDetails(concert);
+                break;
 
-                case 3:
-                    reserveSeat();
-                    break;
+            case "2":
+                seatView.displaySeats(
+                        seatRepository.getAllSeats()
+                );
+                break;
 
-                case 4:
-                    viewMyTicket();
-                    break;
+            case "3":
+                reserveSeat();
+                break;
 
-                case 5:
-                    running = false;
-                    System.out.println(
-                            "\nThank you for using StagePass!"
-                    );
-                    break;
+            case "4":
+                running = false;
+                System.out.println(
+                        "\nThank you for using StagePass!"
+                );
+                break;
 
-                default:
-                    System.out.println(ConsoleColors.RED + "\nInvalid choice. Please try again." + ConsoleColors.RESET);
-            }
+            default:
+                System.out.println(
+                        ConsoleColors.RED
+                        + "\nInvalid choice. Please try again."
+                        + ConsoleColors.RESET
+                );
         }
     }
+}
 
     private void reserveSeat() {
 
@@ -159,23 +165,67 @@ public class StagePassController {
 
         // Display seats
         seatView.displaySeats(seatRepository.getAllSeats());
+        
 
-        System.out.print("\nEnter seat number: ");
-        String seatNumber = scanner.nextLine().trim();
+        
+Seat seat = null;
+String seatNumber;
 
-        // Find selected seat
-        Seat seat = seatRepository.findSeatByNumber(seatNumber);
+while (true) {
 
-        if (seat == null) {
-            System.out.println(ConsoleColors.RED + "Seat does not exist!" + ConsoleColors.RESET);
-            return;
+    System.out.print("\nEnter seat number (0 to cancel): ");
+    seatNumber = scanner.nextLine().trim();
+
+    if (seatNumber.equals("0")) {
+        System.out.println("\nReturning to main menu...");
+        return;
+    }
+
+    seat = seatRepository.findSeatByNumber(seatNumber);
+
+    if (seat == null) {
+
+        System.out.println(
+                ConsoleColors.RED
+                + "Seat does not exist! Please try again."
+                + ConsoleColors.RESET
+        );
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
 
-        // Check seat availability
-        if (seat.getStatus() != SeatStatus.AVAILABLE) {
-            System.out.println(ConsoleColors.RED + "Sorry! This seat is already taken." + ConsoleColors.RESET);
-            return;
+        clearScreen();
+        seatView.displaySeats(seatRepository.getAllSeats());
+        continue;
+    }
+
+    if (seat.getStatus() != SeatStatus.AVAILABLE) {
+
+        System.out.println(
+                ConsoleColors.RED
+                + "Sorry! This seat is unavailable. Please choose another seat."
+                + ConsoleColors.RESET
+        );
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
+
+        clearScreen();
+
+        // Redisplay available seats
+        seatView.displaySeats(seatRepository.getAllSeats());
+
+        continue;
+    }
+
+    break;
+}
 
         // Collect customer information
         clearScreen();
@@ -238,8 +288,6 @@ public class StagePassController {
 
             if (ticket != null) {
 
-                latestTicket = ticket;
-
                 clearScreen();
 
                 System.out.println("\nPayment successful!");
@@ -263,23 +311,6 @@ public class StagePassController {
         }
     }
 
-    private void viewMyTicket() {
-
-        clearScreen();
-
-        System.out.println("\n===== MY TICKET =====");
-
-        if (latestTicket == null) {
-            System.out.println("You don't have a ticket yet.");
-            return;
-        }
-
-        ticketView.displayTicket(
-                latestTicket,
-                concert.getConcertName()
-        );
-    }
-
     public void clearScreen() {
         try {
             new ProcessBuilder("cmd", "/c", "cls")
@@ -290,4 +321,66 @@ public class StagePassController {
             System.out.println("Unable to clear the screen.");
         }
     }
+
+private void showAdminMenu() {
+
+    boolean adminRunning = true;
+
+    while (adminRunning) {
+
+        mainMenuView.displayAdminMenu();
+
+        String choice = mainMenuView.getMenuInput();
+
+        clearScreen();
+
+        switch (choice) {
+
+            case "1":
+                viewAllPurchases();
+                break;
+
+            case "2":
+                adminRunning = false;
+                break;
+
+            default:
+                System.out.println(
+                        ConsoleColors.RED
+                        + "Invalid admin choice."
+                        + ConsoleColors.RESET
+                );
+        }
+    }
+}
+
+private void viewAllPurchases() {
+
+    clearScreen();
+
+    System.out.println(
+            ConsoleColors.PURPLE
+            + "\n===== ALL PURCHASES ====="
+            + ConsoleColors.RESET
+    );
+
+    if (ticketRepository.getAllTickets().isEmpty()) {
+
+        System.out.println("\nNo purchases have been made yet.");
+        return;
+    }
+
+    for (Ticket ticket : ticketRepository.getAllTickets()) {
+
+        System.out.println("\n--------------------------------");
+
+        ticketView.displayTicket(
+                ticket,
+                concert.getConcertName()
+        );
+    }
+
+    System.out.println("\n--------------------------------");
+}
+
 }
