@@ -15,33 +15,27 @@ public class MainMenuView {
 
         System.out.println(
                 ConsoleColors.CYAN + "\n===== STAGEPASS ====="
-                + ConsoleColors.RESET
-        );
+                        + ConsoleColors.RESET);
 
         System.out.println(
                 ConsoleColors.YELLOW + "1. View Concert"
-                + ConsoleColors.RESET
-        );
+                        + ConsoleColors.RESET);
 
         System.out.println(
                 ConsoleColors.WHITE + "2. View Available Seats"
-                + ConsoleColors.RESET
-        );
+                        + ConsoleColors.RESET);
 
         System.out.println(
                 ConsoleColors.WHITE + "3. Reserve a Seat"
-                + ConsoleColors.RESET
-        );
+                        + ConsoleColors.RESET);
 
         System.out.println(
                 ConsoleColors.RED + "4. Exit"
-                + ConsoleColors.RESET
-        );
+                        + ConsoleColors.RESET);
 
         System.out.print(
                 ConsoleColors.CYAN + "\nEnter your choice: "
-                + ConsoleColors.RESET
-        );
+                        + ConsoleColors.RESET);
     }
 
     public String getMenuInput() {
@@ -51,17 +45,40 @@ public class MainMenuView {
     public void displayAdminMenu() {
 
         System.out.println(
-                ConsoleColors.PURPLE + "\n===== ADMIN MENU ====="
-                + ConsoleColors.RESET
-        );
+                ConsoleColors.PURPLE
+                        + "\n===== STAGEPASS ADMIN MENU ====="
+                        + ConsoleColors.RESET);
 
-        System.out.println("1. View All Purchases");
-        System.out.println("2. Return to Main Menu");
+        System.out.println(
+                ConsoleColors.CYAN
+                        + "1. View All Purchases"
+                        + ConsoleColors.RESET);
 
-        System.out.print("\nEnter your choice: ");
+        System.out.println(
+                ConsoleColors.YELLOW
+                        + "2. Edit Purchase"
+                        + ConsoleColors.RESET);
+
+        System.out.println(
+                ConsoleColors.RED
+                        + "3. Delete Purchase"
+                        + ConsoleColors.RESET);
+
+        System.out.println(
+                ConsoleColors.GREEN
+                        + "4. Update Seat Status"
+                        + ConsoleColors.RESET);
+
+        System.out.println(
+                ConsoleColors.WHITE
+                        + "5. Return to Main Menu"
+                        + ConsoleColors.RESET);
+
+        System.out.print(
+                ConsoleColors.PURPLE
+                        + "\nEnter your choice: "
+                        + ConsoleColors.RESET);
     }
-
-
 
     public int getMenuChoice() {
         String input = scanner.nextLine();

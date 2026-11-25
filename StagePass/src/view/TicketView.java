@@ -58,11 +58,11 @@ public class TicketView {
         );
 
         System.out.printf(
-            ConsoleColors.YELLOW + "Ticket Price: "
-            + ConsoleColors.GREEN + "PHP %,.2f%n"
-            + ConsoleColors.RESET,
-            ticket.getPrice()
-        );
+    ConsoleColors.YELLOW + "Ticket Price: "
+    + ConsoleColors.GREEN + "PHP %,d%n"
+    + ConsoleColors.RESET,
+    ticket.getPrice()
+);
 
         System.out.println(
             ConsoleColors.YELLOW + "Date Issued: "

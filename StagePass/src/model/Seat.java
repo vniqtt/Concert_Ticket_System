@@ -29,7 +29,7 @@ public class Seat {
         this.status = status;
     }
 
-    public double getPrice() {
-        return category.getPrice();
-    }
+    public int getPrice() {
+    return category.getPrice();
+}
 }

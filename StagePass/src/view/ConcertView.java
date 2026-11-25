@@ -1,6 +1,7 @@
 package view;
 
 import model.Concert;
+import model.TicketCategory;
 
 public class ConcertView {
 
@@ -34,10 +35,34 @@ public class ConcertView {
             + ConsoleColors.RESET
         );
 
-        System.out.println(ConsoleColors.PURPLE + "Diamond: PHP 25,000" + ConsoleColors.RESET);
-        System.out.println(ConsoleColors.YELLOW + "VIP: PHP 20,000" + ConsoleColors.RESET);
-        System.out.println(ConsoleColors.BLUE + "Platinum: PHP 15,000" + ConsoleColors.RESET);
-        System.out.println(ConsoleColors.GREEN + "Gold: PHP 9,000" + ConsoleColors.RESET);
-        System.out.println(ConsoleColors.WHITE + "Silver: PHP 4,000" + ConsoleColors.RESET);
+        System.out.println(
+    ConsoleColors.PURPLE + "Diamond: PHP "
+    + String.format("%,d", TicketCategory.DIAMOND.getPrice())
+    + ConsoleColors.RESET
+);
+
+System.out.println(
+    ConsoleColors.YELLOW + "VIP: PHP "
+    + String.format("%,d", TicketCategory.VIP.getPrice())
+    + ConsoleColors.RESET
+);
+
+System.out.println(
+    ConsoleColors.BLUE + "Platinum: PHP "
+    + String.format("%,d", TicketCategory.PLATINUM.getPrice())
+    + ConsoleColors.RESET
+);
+
+System.out.println(
+    ConsoleColors.GREEN + "Gold: PHP "
+    + String.format("%,d", TicketCategory.GOLD.getPrice())
+    + ConsoleColors.RESET
+);
+
+System.out.println(
+    ConsoleColors.WHITE + "Silver: PHP "
+    + String.format("%,d", TicketCategory.SILVER.getPrice())
+    + ConsoleColors.RESET
+);
     }
 }

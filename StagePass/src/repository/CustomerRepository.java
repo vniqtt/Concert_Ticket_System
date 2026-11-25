@@ -33,4 +33,7 @@ public class CustomerRepository {
     public List<Customer> getAllCustomers() {
         return customers;
     }
+    public boolean removeCustomer(Customer customer) {
+    return customers.remove(customer);
+    }
 }

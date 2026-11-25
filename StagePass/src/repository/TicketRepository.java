@@ -33,4 +33,8 @@ public class TicketRepository {
     public List<Ticket> getAllTickets() {
         return tickets;
     }
+
+    public boolean removeTicket(Ticket ticket) {
+    return tickets.remove(ticket);
+    }
 }

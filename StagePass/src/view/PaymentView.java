@@ -82,7 +82,7 @@ public class PaymentView {
         Thread.currentThread().interrupt();
     }
 
-    clearScreen();
+    
 
     // Display the payment menu again
     displayPaymentMenu(amount);

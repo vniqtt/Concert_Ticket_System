@@ -33,4 +33,8 @@ public class ReservationRepository {
     public List<Reservation> getAllReservations() {
         return reservations;
     }
+    public boolean removeReservation(Reservation reservation) {
+    return reservations.remove(reservation);
+    }
+    
 }

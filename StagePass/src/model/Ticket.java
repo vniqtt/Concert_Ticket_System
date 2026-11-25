@@ -26,7 +26,7 @@ public class Ticket {
         return issueDate;
     }
 
-    public double getPrice() {
-        return reservation.getSeat().getPrice();
-    }
+    public int getPrice() {
+    return reservation.getSeat().getPrice();
+}
 }

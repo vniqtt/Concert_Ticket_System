@@ -8,13 +8,13 @@ public enum TicketCategory {
     GOLD(9000),
     SILVER(4000);
 
-    private final double price;
+    private final int price;
 
-    TicketCategory(double price) {
-        this.price = price;
-    }
+TicketCategory(int price) {
+    this.price = price;
+}
 
-    public double getPrice() {
-        return price;
-    }
+public int getPrice() {
+    return price;
+}
 }
